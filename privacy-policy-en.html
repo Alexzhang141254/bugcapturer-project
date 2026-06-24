@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BugCapturer Privacy Policy</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        h3 {
+            color: #7f8c8d;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <h1>BugCapturer Privacy Policy</h1>
+
+    <div class="highlight">
+        <strong>Core Statement:</strong> This extension does not collect, store, or transmit any user privacy data. All operations are performed locally in your browser.
+    </div>
+
+    <h2>Overview</h2>
+    <p>BugCapturer is a lightweight visual feedback browser extension. We take your privacy very seriously. This extension <strong>does not collect, store, or transmit any user privacy data</strong>.</p>
+
+    <h2>Data Processing</h2>
+
+    <h3>Local Processing Principle</h3>
+    <ul>
+        <li>All operations are performed locally in your browser, without involving any cloud servers</li>
+        <li>Screenshots and annotations exist only in your browser memory and are automatically cleared after sending</li>
+        <li>We do not read your browsing history, cookies, bookmarks, or other personal data</li>
+    </ul>
+
+    <h3>Technical Metadata</h3>
+    <ul>
+        <li>When you actively click "Send Email", the extension automatically collects the following technical information: page URL, page title, browser type, operating system, screen resolution, viewport size, device pixel ratio, submission time</li>
+        <li>This information is only used to help developers reproduce issues better and will not be stored separately or sent to third parties</li>
+    </ul>
+
+    <h3>Email History Feature</h3>
+    <ul>
+        <li>The extension saves up to 5 recently used recipient email addresses, stored in browser local storage (<code>chrome.storage.local</code>)</li>
+        <li>This data is only used to provide quick selection functionality and will not be uploaded to any server</li>
+    </ul>
+
+    <h3>Email Sending</h3>
+    <ul>
+        <li>Feedback emails are sent through your local mail client</li>
+        <li>The extension does not send emails on your behalf and does not store email content</li>
+        <li>Screenshots are automatically copied to clipboard for you to manually paste into emails</li>
+    </ul>
+
+    <h2>Permission Details</h2>
+    <table>
+        <tr>
+            <th>Permission</th>
+            <th>Purpose</th>
+            <th>Privacy Impact</th>
+        </tr>
+        <tr>
+            <td><code>activeTab</code></td>
+            <td>Access current tab information for screenshot</td>
+            <td>Temporary access only when you actively initiate</td>
+        </tr>
+        <tr>
+            <td><code>storage</code></td>
+            <td>Store recently used email addresses</td>
+            <td>Data stored only in local browser</td>
+        </tr>
+        <tr>
+            <td><code>scripting</code></td>
+            <td>Inject annotation tools into web pages</td>
+            <td>Only active when you initiate</td>
+        </tr>
+        <tr>
+            <td><code>contextMenus</code></td>
+            <td>Add right-click menu shortcut</td>
+            <td>No privacy data involved</td>
+        </tr>
+        <tr>
+            <td><code>&lt;all_urls&gt;</code></td>
+            <td>Enable screenshot functionality on any webpage</td>
+            <td>Only active when you initiate</td>
+        </tr>
+    </table>
+
+    <h2>Privacy Protection Commitments</h2>
+    <ol>
+        <li><strong>No Background Collection</strong>: The extension only runs when you actively operate it, with no silent data collection</li>
+        <li><strong>No Data Upload</strong>: All data processing is done locally and will not be uploaded to any server</li>
+        <li><strong>No Third-Party Sharing</strong>: We will not share any of your data with any third-party organizations</li>
+        <li><strong>Full User Control</strong>: You can clear stored email records at any time. Uninstalling the extension will completely remove all related data</li>
+    </ol>
+
+    <h2>Contact Us</h2>
+    <p>If you have any questions about this privacy policy, please contact us: <a href="mailto:bugcapturer@gmail.com">bugcapturer@gmail.com</a></p>
+
+    <div class="footer">
+        ---<br>
+        <strong>Last Updated</strong>: June 24, 2026
+    </div>
+</body>
+</html>

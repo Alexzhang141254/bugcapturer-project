@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BugCapturer 隐私政策</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        h3 {
+            color: #7f8c8d;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <h1>BugCapturer 隐私政策</h1>
+
+    <div class="highlight">
+        <strong>核心声明：</strong>本插件不会收集、存储或传输任何用户隐私数据。所有操作均在您的浏览器本地完成。
+    </div>
+
+    <h2>概述</h2>
+    <p>BugCapturer 是一款轻量级网页视觉反馈插件，我们非常重视您的隐私安全。本插件<strong>不会收集、存储或传输任何用户隐私数据</strong>。</p>
+
+    <h2>数据处理说明</h2>
+
+    <h3>本地处理原则</h3>
+    <ul>
+        <li>所有操作均在您的浏览器本地完成，不涉及任何云端服务器</li>
+        <li>截图和标注内容仅存在于您的浏览器内存中，发送后自动清除</li>
+        <li>不会读取您的浏览器历史记录、Cookie、书签或其他个人数据</li>
+    </ul>
+
+    <h3>技术元数据</h3>
+    <ul>
+        <li>当您主动点击「发送邮件」时，插件会自动采集以下技术信息：页面URL、页面标题、浏览器类型、操作系统、屏幕分辨率、视口尺寸、设备像素比、提交时间</li>
+        <li>这些信息仅用于帮助开发者更好地复现问题，不会单独存储或发送给第三方</li>
+    </ul>
+
+    <h3>邮箱记忆功能</h3>
+    <ul>
+        <li>插件会保存您最近使用的5个收件邮箱地址，存储在浏览器本地存储（<code>chrome.storage.local</code>）</li>
+        <li>这些数据仅用于提供快速选择功能，不会上传至任何服务器</li>
+    </ul>
+
+    <h3>邮件发送</h3>
+    <ul>
+        <li>反馈邮件通过您的本地邮件客户端发送</li>
+        <li>插件不会代发邮件，不会存储邮件内容</li>
+        <li>截图自动复制到剪贴板，由您手动粘贴到邮件中</li>
+    </ul>
+
+    <h2>权限说明</h2>
+    <table>
+        <tr>
+            <th>权限</th>
+            <th>用途</th>
+            <th>隐私影响</th>
+        </tr>
+        <tr>
+            <td><code>activeTab</code></td>
+            <td>获取当前标签页信息用于截图</td>
+            <td>仅在您主动启动时临时访问</td>
+        </tr>
+        <tr>
+            <td><code>storage</code></td>
+            <td>存储最近使用的邮箱地址</td>
+            <td>数据仅存储在本地浏览器</td>
+        </tr>
+        <tr>
+            <td><code>scripting</code></td>
+            <td>注入标注工具到网页</td>
+            <td>仅在您主动启动时生效</td>
+        </tr>
+        <tr>
+            <td><code>contextMenus</code></td>
+            <td>添加右键菜单快捷入口</td>
+            <td>不涉及隐私数据</td>
+        </tr>
+        <tr>
+            <td><code>&lt;all_urls&gt;</code></td>
+            <td>在任意网页上运行截图功能</td>
+            <td>仅在您主动启动时生效</td>
+        </tr>
+    </table>
+
+    <h2>隐私保护承诺</h2>
+    <ol>
+        <li><strong>无后台采集</strong>：插件仅在您主动操作时运行，无任何静默数据采集</li>
+        <li><strong>无数据上传</strong>：所有数据处理均在本地完成，不会上传至任何服务器</li>
+        <li><strong>无第三方共享</strong>：不会向任何第三方机构分享您的任何数据</li>
+        <li><strong>用户完全控制</strong>：您可以随时清除存储的邮箱记录，卸载插件即可完全清除所有相关数据</li>
+    </ol>
+
+    <h2>联系我们</h2>
+    <p>如果您对隐私政策有任何疑问，欢迎联系我们：<a href="mailto:bugcapturer@gmail.com">bugcapturer@gmail.com</a></p>
+
+    <div class="footer">
+        ---<br>
+        <strong>最后更新</strong>：2026年6月24日
+    </div>
+</body>
+</html>
