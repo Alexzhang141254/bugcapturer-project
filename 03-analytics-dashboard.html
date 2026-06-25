@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataPulse - Analytics Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; }
+
+  .topbar { background: #1e293b; border-bottom: 1px solid #334155; padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+  .topbar-left { display: flex; align-items: center; gap: 28px; }
+  .logo { font-size: 20px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+  .logo span { color: #818cf8; }
+  .topbar-nav { display: flex; gap: 4px; }
+  .topbar-nav a { padding: 8px 14px; border-radius: 8px; text-decoration: none; color: #94a3b8; font-size: 13px; font-weight: 500; transition: all .15s; }
+  .topbar-nav a:hover { background: #334155; color: #e2e8f0; }
+  .topbar-nav a.active { background: #6366f1; color: #fff; }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .date-range { display: flex; align-items: center; gap: 8px; background: #334155; padding: 6px 14px; border-radius: 8px; font-size: 13px; color: #cbd5e1; }
+  .date-range svg { width: 14px; height: 14px; color: #818cf8; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #a78bfa); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 600; }
+
+  .layout { display: flex; min-height: calc(100vh - 56px); }
+  .sidebar { width: 220px; background: #1e293b; border-right: 1px solid #334155; padding: 20px 12px; }
+  .sidebar-section { margin-bottom: 24px; }
+  .sidebar-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 8px; padding: 0 12px; }
+  .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #94a3b8; cursor: pointer; transition: all .15s; }
+  .sidebar-item:hover { background: #334155; color: #e2e8f0; }
+  .sidebar-item.active { background: rgba(99,102,241,0.15); color: #818cf8; }
+  .sidebar-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .main { flex: 1; padding: 24px 28px; overflow-y: auto; }
+  .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .page-title { font-size: 22px; font-weight: 700; color: #fff; }
+  .page-subtitle { font-size: 13px; color: #64748b; margin-top: 2px; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; }
+  .stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .stat-label { font-size: 13px; color: #94a3b8; }
+  .stat-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .stat-icon svg { width: 18px; height: 18px; }
+  .stat-value { font-size: 28px; font-weight: 700; color: #fff; }
+  .stat-change { font-size: 12px; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+  .stat-change.up { color: #34d399; }
+  .stat-change.down { color: #f87171; }
+
+  .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .chart-card { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; }
+  .chart-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 16px; }
+  .chart-area { height: 200px; position: relative; display: flex; align-items: flex-end; gap: 6px; padding: 0 8px; }
+  .chart-bar { flex: 1; border-radius: 4px 4px 0 0; transition: all .2s; position: relative; }
+  .chart-bar:hover { opacity: 0.8; }
+  .chart-bar-label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #64748b; white-space: nowrap; }
+  .chart-line-placeholder { height: 100%; display: flex; align-items: center; justify-content: center; }
+  .chart-line-placeholder svg { width: 100%; height: 100%; }
+
+  .donut-container { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 20px 0; }
+  .donut { width: 140px; height: 140px; border-radius: 50%; position: relative; }
+  .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+  .donut-center-value { font-size: 24px; font-weight: 700; color: #fff; }
+  .donut-center-label { font-size: 11px; color: #64748b; }
+  .donut-legend { display: flex; flex-direction: column; gap: 10px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #cbd5e1; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  .table-card { background: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; }
+  .table-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+  .table-title { font-size: 15px; font-weight: 600; color: #fff; }
+  table { width: 100%; border-collapse: collapse; }
+  th { padding: 12px 20px; text-align: left; font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; background: #1e293b; border-bottom: 1px solid #334155; }
+  td { padding: 14px 20px; font-size: 13px; color: #cbd5e1; border-bottom: 1px solid rgba(51,65,85,0.5); }
+  tr:hover td { background: rgba(51,65,85,0.3); }
+  .status { padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; }
+  .status-active { background: rgba(16,185,129,0.15); color: #34d399; }
+  .status-pending { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .status-error { background: rgba(239,68,68,0.15); color: #f87171; }
+
+  .bug-highlight { background: rgba(239,68,68,0.15); border: 1px solid #f87171; border-radius: 4px; padding: 1px 4px; color: #f87171; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Data<span>Pulse</span>
+    </div>
+    <div class="topbar-nav">
+      <a href="#" class="active">Analytics</a>
+      <a href="#">Reports</a>
+      <a href="#">Audiences</a>
+      <a href="#">Events</a>
+      <a href="#">Settings</a>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="date-range">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Nov 1 &ndash; Nov 30, 2025
+    </div>
+    <div class="avatar">MK</div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Analytics</div>
+      <div class="sidebar-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        Overview
+      </div>
+      <div class="sidebar-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Realtime
+      </div>
+      <div class="sidebar-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Users
+      </div>
+      <div class="sidebar-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Traffic
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Configuration</div>
+      <div class="sidebar-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Analytics Overview</div>
+        <div class="page-subtitle">Your website performance at a glance</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-label">Total Visitors</div>
+          <div class="stat-icon" style="background:rgba(99,102,241,0.15);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">24,589</div>
+        <div class="stat-change up">&#9650; 12.5% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-label">Page Views</div>
+          <div class="stat-icon" style="background:rgba(16,185,129,0.15);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">89,241</div>
+        <div class="stat-change up">&#9650; 8.3% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-label">Bounce Rate</div>
+          <div class="stat-icon" style="background:rgba(245,158,11,0.15);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">42.3%</div>
+        <div class="stat-change down">&#9660; 2.1% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-label"><span class="bug-highlight">Avg. Duration</span></div>
+          <div class="stat-icon" style="background:rgba(239,68,68,0.15);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">3m 42s</div>
+        <div class="stat-change down">&#9660; 15s vs last month</div>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="chart-card">
+        <div class="chart-title">Weekly Page Views</div>
+        <div class="chart-area">
+          <div class="chart-bar" style="height:45%;background:linear-gradient(to top,#6366f1,#818cf8);"><div class="chart-bar-label">Mon</div></div>
+          <div class="chart-bar" style="height:62%;background:linear-gradient(to top,#6366f1,#818cf8);"><div class="chart-bar-label">Tue</div></div>
+          <div class="chart-bar" style="height:55%;background:linear-gradient(to top,#6366f1,#818cf8);"><div class="chart-bar-label">Wed</div></div>
+          <div class="chart-bar" style="height:78%;background:linear-gradient(to top,#6366f1,#818cf8);"><div class="chart-bar-label">Thu</div></div>
+          <div class="chart-bar" style="height:90%;background:linear-gradient(to top,#6366f1,#818cf8);"><div class="chart-bar-label">Fri</div></div>
+          <div class="chart-bar" style="height:70%;background:linear-gradient(to top,#6366f1,#818cf8);"><div class="chart-bar-label">Sat</div></div>
+          <div class="chart-bar" style="height:50%;background:linear-gradient(to top,#6366f1,#818cf8);"><div class="chart-bar-label">Sun</div></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Traffic Sources</div>
+        <div class="donut-container">
+          <div class="donut" style="background:conic-gradient(#6366f1 0% 42%, #818cf8 42% 68%, #34d399 68% 85%, #fbbf24 85% 100%);">
+            <div class="donut-center">
+              <div class="donut-center-value">89K</div>
+              <div class="donut-center-label">Total</div>
+            </div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#6366f1;"></div>Direct 42%</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#818cf8;"></div>Search 26%</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Social 17%</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;"></div>Referral 15%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-title">Top Pages</div>
+        <div style="font-size:13px;color:#64748b;">Last 7 days</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Views</th>
+            <th>Unique</th>
+            <th>Bounce Rate</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>/homepage</td>
+            <td>12,489</td>
+            <td>8,921</td>
+            <td>32.1%</td>
+            <td><span class="status status-active">Active</span></td>
+          </tr>
+          <tr>
+            <td>/products/catalog</td>
+            <td>8,341</td>
+            <td>5,672</td>
+            <td>28.7%</td>
+            <td><span class="status status-active">Active</span></td>
+          </tr>
+          <tr>
+            <td>/blog/latest</td>
+            <td>5,219</td>
+            <td>3,891</td>
+            <td>45.3%</td>
+            <td><span class="status status-pending">Pending</span></td>
+          </tr>
+          <tr>
+            <td>/checkout/payment</td>
+            <td>3,891</td>
+            <td>2,104</td>
+            <td>67.8%</td>
+            <td><span class="status status-error">Error</span></td>
+          </tr>
+          <tr>
+            <td>/account/settings</td>
+            <td>2,456</td>
+            <td>1,893</td>
+            <td>41.2%</td>
+            <td><span class="status status-active">Active</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
