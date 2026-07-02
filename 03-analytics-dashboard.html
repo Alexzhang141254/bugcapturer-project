@@ -275,5 +275,44 @@
   </div>
 </div>
 
+<script>
+  // ====== 模拟控制台错误 ======
+  console.error('TypeError: Cannot read properties of undefined (reading "userProfile")');
+  console.error('SyntaxError: Unexpected token < in JSON at position 0 (api/analytics/summary)');
+  console.error('RangeError: Maximum call stack size exceeded (recursiveRender)');
+  console.error('NetworkError: Failed to execute "fetch" on "Window" - net::ERR_CONNECTION_REFUSED');
+
+  // ====== 模拟未捕获的运行时错误 ======
+  setTimeout(function () {
+    var obj = undefined;
+    try { obj.name; } catch (e) { console.error('Uncaught TypeError: ' + e.message); }
+  }, 500);
+
+  // ====== 模拟未处理的 Promise 拒绝 ======
+  setTimeout(function () {
+    Promise.reject(new Error('Unhandled rejection: WebSocket connection to wss://api.datapulse.io/realtime failed')).catch(function () {});
+    Promise.reject(new Error('ChunkLoadError: Loading chunk 7 failed')).catch(function () {});
+  }, 800);
+
+  // ====== 模拟网络失败请求 (4xx / 5xx) ======
+  // 404 Not Found
+  fetch('/api/v2/users/notifications').catch(function () {});
+  // 500 Internal Server Error
+  fetch('/api/v2/analytics/export?format=csv').catch(function () {});
+  // 403 Forbidden
+  fetch('/api/v2/admin/settings').catch(function () {});
+  // 401 Unauthorized (带敏感 token 参数，测试脱敏)
+  fetch('/api/v2/auth/refresh?access_token=eyJhbGciOiJIUzI1NiJ9&token=abc123def456&user_id=42').catch(function () {});
+  // 404 静态资源
+  fetch('/static/charts/realtime-widget.bundle.js').catch(function () {});
+
+  // ====== 模拟图片资源加载失败 ======
+  setTimeout(function () {
+    var img404 = new Image();
+    img404.src = '/assets/images/missing-chart-placeholder.png';
+    document.body.appendChild(img404);
+  }, 1200);
+</script>
+
 </body>
 </html>
