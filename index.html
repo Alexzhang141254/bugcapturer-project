@@ -14,117 +14,89 @@
             color: #333;
             background-color: #f8f9fa;
         }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-        }
-        h2 {
-            color: #34495e;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        h3 {
-            color: #7f8c8d;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        p {
-            margin-bottom: 15px;
-        }
-        ul {
-            margin-bottom: 20px;
-            padding-left: 25px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        th {
-            background-color: #3498db;
-            color: white;
-            font-weight: 600;
-        }
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9em;
-        }
-        strong {
-            color: #2c3e50;
-        }
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ecf0f1;
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-        .highlight {
-            background-color: #fff3cd;
-            padding: 15px 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ffc107;
-        }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 15px; margin-bottom: 30px; }
+        h2 { color: #34495e; margin-top: 30px; margin-bottom: 15px; }
+        h3 { color: #7f8c8d; margin-top: 20px; margin-bottom: 10px; }
+        p { margin-bottom: 15px; }
+        ul, ol { margin-bottom: 20px; padding-left: 25px; }
+        li { margin-bottom: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ecf0f1; }
+        th { background-color: #3498db; color: white; font-weight: 600; }
+        tr:hover { background-color: #f8f9fa; }
+        code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.9em; }
+        strong { color: #2c3e50; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; color: #7f8c8d; font-size: 0.9em; }
+        .highlight { background-color: #fff3cd; padding: 15px 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #ffc107; }
+        .section-card { background: white; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
     </style>
 </head>
 <body>
     <h1>BugCapturer Privacy Policy</h1>
 
     <div class="highlight">
-        <strong>Core Statement:</strong> This extension does not collect, store, or transmit any user privacy data. All operations are performed locally in your browser.
+        <strong>Core Statement:</strong> This extension does not collect, store, or transmit any user privacy data to any server. All operations are performed locally in your browser.
     </div>
 
     <h2>Overview</h2>
-    <p>BugCapturer is a lightweight visual feedback browser extension. We take your privacy very seriously. This extension <strong>does not collect, store, or transmit any user privacy data</strong>.</p>
+    <p>BugCapturer is a lightweight visual feedback browser extension. We take your privacy very seriously. This extension <strong>does not collect, store, or transmit any user privacy data to any server</strong>. All data processing happens locally in your browser.</p>
 
     <h2>Data Processing</h2>
 
-    <h3>Local Processing Principle</h3>
-    <ul>
-        <li>All operations are performed locally in your browser, without involving any cloud servers</li>
-        <li>Screenshots and annotations exist only in your browser memory and are automatically cleared after sending</li>
-        <li>We do not read your browsing history, cookies, bookmarks, or other personal data</li>
-    </ul>
+    <div class="section-card">
+        <h3>Local Processing Principle</h3>
+        <ul>
+            <li>All operations are performed locally in your browser, without involving any cloud servers</li>
+            <li>Screenshots and annotations exist only in your browser memory and are automatically cleared after sending</li>
+            <li>We do not read your browsing history, cookies, bookmarks, or other personal data</li>
+        </ul>
+    </div>
 
-    <h3>Technical Metadata</h3>
-    <ul>
-        <li>When you actively click "Send Email", the extension automatically collects the following technical information: page URL, page title, browser type, operating system, screen resolution, viewport size, device pixel ratio, submission time</li>
-        <li>This information is only used to help developers reproduce issues better and will not be stored separately or sent to third parties</li>
-    </ul>
+    <div class="section-card">
+        <h3>Technical Metadata</h3>
+        <ul>
+            <li>When you actively click "Send Email", the extension automatically collects the following technical information: page URL, page title, browser type, operating system, screen resolution, viewport size, device pixel ratio, submission time</li>
+            <li>This information is only used to help developers reproduce issues better and will not be stored separately or sent to third parties</li>
+        </ul>
+    </div>
 
-    <h3>Email History Feature</h3>
-    <ul>
-        <li>The extension saves up to 5 recently used recipient email addresses, stored in browser local storage (<code>chrome.storage.local</code>)</li>
-        <li>This data is only used to provide quick selection functionality and will not be uploaded to any server</li>
-    </ul>
+    <div class="section-card">
+        <h3>Diagnostic Data Collection (v1.0.1+)</h3>
+        <ul>
+            <li>The extension can optionally collect <strong>console errors</strong> (error-level console output and unhandled JS exceptions) and <strong>failed network requests</strong> (HTTP status ≥ 400) from the current page</li>
+            <li>This feature is <strong>on by default but fully optional</strong> — you can uncheck "Include diagnostic info" at any time before sending</li>
+            <li>Diagnostic data is only read and included in your feedback email when you actively click "Send Email" with the checkbox enabled</li>
+            <li><strong>No diagnostic data is ever sent to any server</strong> — it is only included in the email you compose and send yourself via your local mail client</li>
+            <li>Console errors are temporarily stored in a hidden DOM element on the page (max 30 entries) and cleared when the page unloads</li>
+            <li>Network errors are held in browser memory (max 20 entries) and cleared after sending feedback</li>
+        </ul>
+    </div>
 
-    <h3>Email Sending</h3>
-    <ul>
-        <li>Feedback emails are sent through your local mail client</li>
-        <li>The extension does not send emails on your behalf and does not store email content</li>
-        <li>Screenshots are automatically copied to clipboard for you to manually paste into emails</li>
-    </ul>
+    <div class="section-card">
+        <h3>URL Desensitization</h3>
+        <ul>
+            <li>When collecting failed network requests, the extension automatically redacts sensitive URL parameters (tokens, passwords, API keys, etc.) by replacing their values with <code>***</code></li>
+            <li>Sensitive parameter names include: token, key, secret, password, pwd, auth, access_token, refresh_token, api_key, private_key (case-insensitive)</li>
+            <li>Example: <code>https://api.example.com/data?token=abc123&id=456</code> → <code>https://api.example.com/data?token=***&id=456</code></li>
+        </ul>
+    </div>
+
+    <div class="section-card">
+        <h3>Email History Feature</h3>
+        <ul>
+            <li>The extension saves up to 5 recently used recipient email addresses, stored in browser local storage (<code>chrome.storage.local</code>)</li>
+            <li>This data is only used to provide quick selection functionality and will not be uploaded to any server</li>
+        </ul>
+    </div>
+
+    <div class="section-card">
+        <h3>Email Sending</h3>
+        <ul>
+            <li>Feedback emails are sent through your local mail client</li>
+            <li>The extension does not send emails on your behalf and does not store email content</li>
+            <li>Screenshots are automatically copied to clipboard for you to manually paste into emails</li>
+        </ul>
+    </div>
 
     <h2>Permission Details</h2>
     <table>
@@ -145,7 +117,7 @@
         </tr>
         <tr>
             <td><code>scripting</code></td>
-            <td>Inject annotation tools into web pages</td>
+            <td>Inject annotation tools and diagnostic collectors into web pages</td>
             <td>Only active when you initiate</td>
         </tr>
         <tr>
@@ -155,17 +127,19 @@
         </tr>
         <tr>
             <td><code>&lt;all_urls&gt;</code></td>
-            <td>Enable screenshot functionality on any webpage</td>
-            <td>Only active when you initiate</td>
+            <td>Enable screenshot, annotation, and diagnostic data collection on any webpage</td>
+            <td>Only active when you initiate; diagnostic data is optional and user-controlled</td>
         </tr>
     </table>
 
     <h2>Privacy Protection Commitments</h2>
     <ol>
-        <li><strong>No Background Collection</strong>: The extension only runs when you actively operate it, with no silent data collection</li>
-        <li><strong>No Data Upload</strong>: All data processing is done locally and will not be uploaded to any server</li>
+        <li><strong>No Server Upload</strong>: All data processing is done locally and will never be uploaded to any server</li>
         <li><strong>No Third-Party Sharing</strong>: We will not share any of your data with any third-party organizations</li>
+        <li><strong>User-Controlled Diagnostics</strong>: Diagnostic data collection is optional — you can opt out at any time by unchecking the checkbox</li>
+        <li><strong>Automatic Redaction</strong>: Sensitive URL parameters (tokens, passwords, API keys) are automatically redacted before inclusion</li>
         <li><strong>Full User Control</strong>: You can clear stored email records at any time. Uninstalling the extension will completely remove all related data</li>
+        <li><strong>Data Minimization</strong>: Console errors are capped at 30 entries, network errors at 20 entries, and only the most recent subset is included in feedback</li>
     </ol>
 
     <h2>Contact Us</h2>
@@ -173,7 +147,8 @@
 
     <div class="footer">
         ---<br>
-        <strong>Last Updated</strong>: June 24, 2026
+        <strong>Last Updated</strong>: July 2, 2026<br>
+        <strong>Effective Since</strong>: v1.0.1
     </div>
 </body>
 </html>
